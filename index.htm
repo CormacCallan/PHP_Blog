@@ -1,0 +1,107 @@
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="../mysql.js"></script>
+<link rel="stylesheet" type="text/css" href="../mysql.css" media="screen" />
+
+<title>MySQL02 Web Directory</title>
+</head>
+<body bgcolor=white>
+<center><img src="../phpmysql.jpg"></center><br>
+
+
+    <div class="expandable-panel" id="cp-1">
+        <div class="expandable-panel-heading">
+            <h2>Important Information - PLEASE READ!<span class="icon-close-open"></span></h2>
+         </div>
+        <div class="expandable-panel-content">
+            <p>
+<li>This is your student web directory. You can access it over FTP using details sent to you by email. If you put index.html in here, it will override this file (index.htm) and if you put a file index.php in the same directory, it will override ALL index files.
+<br><br>
+<li>This server is listed at <b>mysql02host.comp.dkit.ie</b> when on campus, <b>mysql02.comp.dkit.ie</b> when off campus. This is because external access is only on Port 80 and via the college reverse proxy.
+<br><br>
+<li>You can use PHP scripts to make connections to the MySQL database server (running on "localhost"). <a href="http://mysql02.comp.dkit.ie/phpmyadmin">PHPMyAdmin</a> is also available.
+<br><br>
+<li>FTP connections to this server can currently only be made from inside DkIT using the address mysql02host.comp.dkit.ie.
+<br><br>
+<li>In all instances the password is the one mailed out to you, <b>not</b> your regular DkIT password (it can change regularly, inconvenient for PHP scripts with hardcoded connections).
+<br><br>
+<li>Usernames are <b>case sensitive</b>. D123456 is <b>not</b> the same as d123456.
+<br><br>
+<li>The web directories and databases are deleted and reset every summer. Keep backups!
+<br><br>
+<li>The database password gods can only be appeased with coffee and pastries. You have been warned...
+           </p>
+        </div>
+    </div>
+     
+    <div class="expandable-panel" id="cp-2">
+        <div class="expandable-panel-heading">
+            <h2>Example PHP Script<span class="icon-close-open"></span></h2>
+         </div>
+        <div class="expandable-panel-content">
+            <p>
+
+<code>
+&lt;?php<br><br>
+//Try this yourself by creating and uploading a PHP script to your FTP space
+<br><br>
+$servername = "localhost";<br>
+$username = "D000123456"; //substitute with YOUR username<br>
+$password = "p@55!23"; //substitute with password sent to your email<br>
+<br>
+try {<br>
+    $conn = new PDO("mysql:host=$servername;dbname=$username", $username, $password);<br>
+    // set the PDO error mode to exception<br>
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);<br>
+    echo "Connected successfully to database!"; <br><br>
+
+    // Do something with the new connection....<br><br>
+
+    }<br>
+catch(PDOException $e)<br>
+    {<br>
+    echo "Connection failed: " . $e->getMessage();<br>
+    }<br>
+?>
+</code>
+
+<br><br>
+<i>*** This server is running PHP 7, so <a href="http://php.net/manual/en/pdo.connections.php">PDO()</a> is preferred for accessing databases. Note that <a href="http://www.w3schools.com/php/php_ref_mysqli.asp">mysqli()</a> will still work, but standard mysql() is now deprecated ***</i>
+           </p>  
+        </div>
+  </div>
+     
+  <div class="expandable-panel" id="cp-3">
+     <div class="expandable-panel-heading">
+         <h2>Sending Email<span class="icon-close-open"></span></h2>
+     </div>
+     <div class="expandable-panel-content">
+         <p>
+            <li>It is possible to send emails in your scripts using the <a href="http://php.net/manual/en/function.mail.php" target="_blank">mail()</a> function, but only to your <b>own</b> student email account. Click <a href="testmail.php">here</a> to send a test email now.
+            <li>Abuse of the email facility on this server will be reported to your lecturer and your web account (including database) <b>immediately</b> deleted.</p>
+     </div>
+  </div> 
+</div>
+<br>
+<center><a href="../phpinfo.php"><img src="../LAMP.jpg"></a></center>
+
+<!--
+
+   ___      ___
+  /   \____/   \
+ /    / __ \    \
+/    |  ..  |    \
+\___/|      |\___/\
+   | |_|  |_|      \
+   | |/|__|\|       \
+   |   |__|         |\
+   |   |__|   |_/  /  \
+   | @ |  | @ || @ |   '
+   |   |~~|   ||   |     The elephant in the room is that Linux is best for web developers AND for web servers. So why use Windoze at all?
+   'ooo'  'ooo''ooo'
+
+-->
+
+</body>
+</html>

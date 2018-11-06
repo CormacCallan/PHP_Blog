@@ -1,0 +1,94 @@
+create database BrAC;
+use BrAC;
+
+
+create table category(
+	categoryID int(5) NOT NULL AUTO_INCREMENT,
+	categoryTitle varchar(15),
+	PRIMARY KEY(categoryID)
+);
+
+create table blog(
+	blogID int(5) NOT NULL AUTO_INCREMENT,
+	blogCategory varchar(15),
+	blogTitle varchar(100),
+	blogText varchar(500),
+	blogImg varchar(200),
+	featured int(1),
+	PRIMARY KEY(blogID)
+);
+
+INSERT INTO blog VALUES
+(blogID,'New Clubroom Open','Join us next Wednesday for the opening of our new clubr rooms.','clubroom.jpg','1'),
+(blogID,'Sarah Makes History','Sarah makes history with first ever Senior track title for the club in a record run at NIA.','athletes.jpg','1'),
+(blogID,'Leinster Schools Update','Sarah, Lara & Oisin will all be competing in the All Ireland Schools XC championship in WIT on Saturday 10th March.','featured.jpg','0');
+
+
+create table featured(
+	featID int(5) NOT NULL AUTO_INCREMENT,
+	blogID int(5),
+	featTitle varchar(100),
+	featText varchar(500),
+	featImg varchar(200),
+    	featured int (1),
+	PRIMARY KEY(featID)
+);
+
+
+
+INSERT INTO featured (blogID,  featTitle, featText, featImg,   featured)
+SELECT blogID, blogTitle, blogText, blogImg, featured
+FROM blog
+WHERE featured =1;
+
+
+CREATE TABLE `tbl_users` (
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(25) NOT NULL,
+  `user_email` varchar(60) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+user_pic varchar(200),
+  `joining_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `tbl_users` (`user_id`, `user_name`, `user_email`, `user_password`,user_pic, `joining_date`) VALUES
+(2, 'Fred', 'fred@me.com', '78dec27507b0f88d5fadac7be095e30c', 'default.png','2017-08-31 14:19:50'),
+(3, 'Cormac Callan', 'cc@me.com', 'pass1234', 'default.png','joining_date');
+
+ALTER TABLE `tbl_users`
+  ADD PRIMARY KEY (`user_id`);
+
+ALTER TABLE `tbl_users`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+
+CREATE TABLE comments(
+    comment_id int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    blogID int(5),
+    user_id int(5),
+text varchar(100),	
+    FOREIGN KEY(blogID) REFERENCES blog(blogID),
+    FOREIGN KEY(user_id) REFERENCES tbl_users(user_id)
+    );
+
+INSERT INTO comments (comment_id,blogId,user_id,text) VALUES
+(comment_id, '1', '3', 'Wow this is great. Well Done!'),
+(comment_id, '2', '3', 'Congratulations!');
+
+
+CREATE TABLE gallery(
+    imgID int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    file varchar(200),
+	title varchar(50),	
+upload_date datetime NOT NULL
+    );
+
+
+insert into gallery(imgId, file, title, upload_date) VALUES
+(imgId, 'tent.jpg', 'The tent', upload_date),
+(imgId, 'group2.jpg', 'Day out', upload_date),
+(imgId, 'running.jpg', 'Race day', upload_date),
+(imgId, 'group.jpg', 'Day out', upload_date),
+(imgId, 'group.jpg', 'Day out', upload_date),
+(imgId, 'group2.jpg', 'Day out', upload_date);
